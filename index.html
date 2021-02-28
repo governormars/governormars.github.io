@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Test NJU</title>
+</head>
+
+<body>
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.qrcode.js"></script>
+    <script type="text/javascript" src="js/qrcode.js"></script>
+    <script type="text/javascript" src="js/utf.js"></script>
+	<a href="https://tool.lu/timestamp/" target="_blank">毫秒级时间戳</a>
+	<p></p>
+    <input id="text" type="text" value="https://ehallapp.nju.edu.cn/qljfwapp/sys/lwWiseduElectronicPass/w/你的学号.do?time=13位时间戳" style="width:80%" />
+
+    <div id="qrcodeCanvas">
+		<canvas width="350" height="350"></canvas>
+	</div>
+    <script>
+
+
+	function makeCode () {		
+		var elText = document.getElementById("text");
+		
+		if (!elText.value) {
+			alert("Input a text");
+			elText.focus();
+			return;
+		}
+		return elText.value;
+  }
+
+
+
+	$("#text").
+      on("blur", function () {
+		$('#qrcodeCanvas').html("");
+		$('#qrcodeCanvas').qrcode({
+			render: "canvas", // 渲染方式有table方式（IE兼容）和canvas方式
+			text: makeCode(),
+			background: "#ffffff",//背景颜色
+			foreground: "#90138b",  //二维码颜色
+			width: 200, //宽度
+			height:200, //高度
+			correctLevel: QRErrorCorrectLevel.M,
+	        src: 'img/nju_logo.png', 	// 二维码中间的图片
+			imgWidth : "40",
+			imgHeight : "40"
+	    });
+      }).
+      on("keydown", function (e) {
+          if (e.keyCode == 13) {
+			$('#qrcodeCanvas').html("");
+            $('#qrcodeCanvas').qrcode({
+			render: "canvas", // 渲染方式有table方式（IE兼容）和canvas方式
+			text: makeCode(),
+			background: "#ffffff",//背景颜色
+			foreground: "#90138b",  //二维码颜色
+			width: 200, //宽度
+			height:200, //高度
+			correctLevel: QRErrorCorrectLevel.M,
+	        src: 'img/nju_logo.png', 	// 二维码中间的图片
+			imgWidth : "40",
+			imgHeight : "40"
+	    });
+          }
+      });
+	  
+    </script>
+</body>
+
+</html>
